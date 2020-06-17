@@ -5,15 +5,12 @@ public class BookingCanceled extends AbstractEvent {
     private Long id;
     private Long showId;
     private Integer qty;
-    private String bookStatus;
-
-    public BookingCanceled(){
-        super();
-    }
+    private Integer amount;
 
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -21,6 +18,7 @@ public class BookingCanceled extends AbstractEvent {
     public Long getShowId() {
         return showId;
     }
+
     public void setShowId(Long showId) {
         this.showId = showId;
     }
@@ -28,14 +26,16 @@ public class BookingCanceled extends AbstractEvent {
     public Integer getQty() {
         return qty;
     }
+
     public void setQty(Integer qty) {
         this.qty = qty;
     }
 
-    public String getBookStatus() {
-        return bookStatus;
+    public Integer getAmount() {
+        return amount;
     }
-    public void setBookStatus(String bookStatus) {
-        this.bookStatus = bookStatus;
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
     }
 }

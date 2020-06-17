@@ -43,13 +43,23 @@ public class AbstractEvent {
             /**
              * spring streams 방식
              */
-            KafkaProcessor processor = Application.applicationContext.getBean(KafkaProcessor.class);
-            MessageChannel outputChannel = processor.outboundTopic();
 
-            outputChannel.send(MessageBuilder
-                    .withPayload(json)
-                    .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
-                    .build());
+            KafkaProcessor processor = Application.applicationContext.getBean(KafkaProcessor.class);
+            MessageChannel outputChannel = null;
+
+            if ("Booked".equals(this.getEventType())) {
+                outputChannel = processor.outboundTopic1();
+            }
+            else {
+                outputChannel = processor.outboundTopic2();
+            }
+
+            if ( outputChannel != null ) {
+                outputChannel.send(MessageBuilder
+                        .withPayload(json)
+                        .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
+                        .build());
+            }
 
         }
     }
