@@ -23,12 +23,17 @@ spring:
                 value:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
-        event-in:
-          group: booking
-          destination: show
+        event-in1:
+          destination: ticketQtyChanged
           contentType: application/json
-        event-out:
-          destination: show
+        event-out1:
+          destination: booked
+          contentType: application/json
+        event-out2:
+          destination: bookingCanceled
+          contentType: application/json
+        event-out3:
+          destination: BookConfirmed
           contentType: application/json
 
 logging:

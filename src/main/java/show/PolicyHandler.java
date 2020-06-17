@@ -1,5 +1,7 @@
 package show;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import show.config.kafka.KafkaProcessor;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHeaders;
@@ -25,6 +27,27 @@ public class PolicyHandler{
                 booking.setId(ticketQtyChanged.getBookId());
                 booking.setBookStatus("BookingFailed");
                 bookingRepository.save(booking);
+            }
+            else {
+               bookingRepository.findById(ticketQtyChanged.getBookId()).ifPresent(booking -> {
+                   ObjectMapper objectMapper = new ObjectMapper();
+                   String json = null;
+
+                   try {
+                       json = objectMapper.writeValueAsString(booking);
+                   } catch (JsonProcessingException e) {
+                       e.printStackTrace();
+                   }
+
+                   KafkaProcessor kafkaProcessor = Application.applicationContext.getBean(KafkaProcessor.class);
+                   MessageChannel outputChannel = kafkaProcessor.outboundTopic3();
+
+                   outputChannel.send(MessageBuilder
+                           .withPayload(json)
+                           .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
+                           .build()
+                   );
+               });
             }
             System.out.println("##### listener BookingStatusChange : " + ticketQtyChanged.toJson());
         }

@@ -10,6 +10,7 @@ public interface KafkaProcessor {
     String INPUT1 = "event-in1";
     String OUTPUT1 = "event-out1";
     String OUTPUT2 = "event-out2";
+    String OUTPUT3 = "event-out3";
 
     @Input(INPUT1)
     SubscribableChannel inboundTopic1();
@@ -19,5 +20,8 @@ public interface KafkaProcessor {
 
     @Output(OUTPUT2)
     MessageChannel outboundTopic2();
+
+    @Output(OUTPUT3)
+    MessageChannel outboundTopic3();
 
 }
