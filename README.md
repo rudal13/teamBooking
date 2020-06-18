@@ -468,11 +468,11 @@ https://workflowy.com/s/msa/27a0ioMCzlpV04Ib#/d3169f4b644e
 
 # 운영 (시연테스트)
 
-    - Circuit Breaking, Retry
-    - CodeBuild CI/CD
-    - Autoscale
-    - 부하테스트
-    - liveness/readiness probe
+    - 서킷 브레이킹 / 장애격리
+    - CI/CD 설정
+    - 오토스케일 아웃
+    - 무정지 재배포
+    - Liveness / Readiness
     - Contract Test
 
 ----
