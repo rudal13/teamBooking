@@ -26,12 +26,6 @@
 
 # 서비스 시나리오
 
-조직
-예매 : 고객 예매 오류를 최소화 한다. (Core)
-결제 : 결제 오류를 최소화 한다. (Supporting)
-공연 : 공연 잔여 좌석수 오류를 최소화 한다. (Supporting)
-발권 : 고객 발권 오류를 최소화 한다. (Supporting)
-
 기능적 요구사항
 1. 고객이 티켓을 예매한다.
 1. 고객이 결제한다.
@@ -57,7 +51,6 @@
 # 체크포인트
 
 - 분석 설계
-
 
   - 이벤트스토밍: 
     - 스티커 색상별 객체의 의미를 제대로 이해하여 헥사고날 아키텍처와의 연계 설계에 적절히 반영하고 있는가?
@@ -119,87 +112,77 @@
 http://msaez.io/#/storming/TtlBXy3jjVQGoUCtUfiFniZJdmA3/mine/fb4e809d0e505571ac65733d0aba82ce/-M90v2UtSiD5s2DyYuPH
 
 ### 이벤트 도출
-![image](https://user-images.githubusercontent.com/487999/79683604-47bc0180-8266-11ea-9212-7e88c9bf9911.png)
-
-### 부적격 이벤트 탈락
-![image](https://user-images.githubusercontent.com/487999/79683612-4b4f8880-8266-11ea-9519-7e084524a462.png)
-
-    - 과정중 도출된 잘못된 도메인 이벤트들을 걸러내는 작업을 수행함
-        - 주문시>메뉴카테고리선택됨, 주문시>메뉴검색됨 :  UI 의 이벤트이지, 업무적인 의미의 이벤트가 아니라서 제외
+![image](https://user-images.githubusercontent.com/19758188/84964378-eec5f800-b146-11ea-8f54-a6b1dcc9fd64.png)
 
 ### 액터, 커맨드 부착하여 읽기 좋게
-![image](https://user-images.githubusercontent.com/487999/79683614-4ee30f80-8266-11ea-9a50-68cdff2dcc46.png)
+![image](https://user-images.githubusercontent.com/19758188/84964216-824af900-b146-11ea-9711-0e9d0b8ed0b1.png)
 
 ### 어그리게잇으로 묶기
-![image](https://user-images.githubusercontent.com/487999/79683618-52769680-8266-11ea-9c21-48d6812444ba.png)
+![image](https://user-images.githubusercontent.com/19758188/84964248-95f65f80-b146-11ea-9731-1d2a1d2e5a62.png)
 
-    - app의 Order, store 의 주문처리, 결제의 결제이력은 그와 연결된 command 와 event 들에 의하여 트랜잭션이 유지되어야 하는 단위로 그들 끼리 묶어줌
+    - 예매, 공연, 결제, 발권 그와 연결된 command 와 event 들에 의하여 트랜잭션이 유지되어야 하는 단위로 그들 끼리 묶어줌
 
 ### 바운디드 컨텍스트로 묶기
-
-![image](https://user-images.githubusercontent.com/487999/79683625-560a1d80-8266-11ea-9790-40d68a36d95d.png)
+![image](https://user-images.githubusercontent.com/19758188/84964279-ac042000-b146-11ea-81f5-5112ec86ce94.png)
 
     - 도메인 서열 분리 
-        - Core Domain:  app(front), store : 없어서는 안될 핵심 서비스이며, 연견 Up-time SLA 수준을 99.999% 목표, 배포주기는 app 의 경우 1주일 1회 미만, store 의 경우 1개월 1회 미만
-        - Supporting Domain:   marketing, customer : 경쟁력을 내기위한 서비스이며, SLA 수준은 연간 60% 이상 uptime 목표, 배포주기는 각 팀의 자율이나 표준 스프린트 주기가 1주일 이므로 1주일 1회 이상을 기준으로 함.
-        - General Domain:   pay : 결제서비스로 3rd Party 외부 서비스를 사용하는 것이 경쟁력이 높음 (핑크색으로 이후 전환할 예정)
+        - 예매 : 고객 예매 오류를 최소화 한다. (Core)
+        - 결제 : 결제 오류를 최소화 한다. (Supporting)
+        - 공연 : 공연 잔여 좌석수 오류를 최소화 한다. (Supporting)
+        - 발권 : 고객 발권 오류를 최소화 한다. (Supporting)
 
 ### 폴리시 부착 (괄호는 수행주체, 폴리시 부착을 둘째단계에서 해놔도 상관 없음. 전체 연계가 초기에 드러남)
-
-![image](https://user-images.githubusercontent.com/487999/79683633-5aced180-8266-11ea-8f42-c769eb88dfb1.png)
+![image](https://user-images.githubusercontent.com/19758188/84964304-bd4d2c80-b146-11ea-9edb-31ddce1f3788.png)
 
 ### 폴리시의 이동과 컨텍스트 매핑 (점선은 Pub/Sub, 실선은 Req/Resp)
-
-![image](https://user-images.githubusercontent.com/487999/79683641-5f938580-8266-11ea-9fdb-4e80ff6642fe.png)
+![image](https://user-images.githubusercontent.com/19758188/84964323-cd650c00-b146-11ea-9136-7deb4c760109.png)
 
 ### 완성된 1차 모형
-
-![image](https://user-images.githubusercontent.com/487999/79683646-63bfa300-8266-11ea-9bc5-c0b650507ac8.png)
-
-    - View Model 추가
+![image](https://user-images.githubusercontent.com/19758188/84964335-d81fa100-b146-11ea-8778-7e9920348535.png)
 
 ### 1차 완성본에 대한 기능적/비기능적 요구사항을 커버하는지 검증
 
-![image](https://user-images.githubusercontent.com/487999/79684167-3ecd2f00-826a-11ea-806a-957362d197e3.png)
+# 시나리오1 Coverage Check
+![image](https://user-images.githubusercontent.com/19758188/84964404-fe454100-b146-11ea-82d8-397f9815e746.png)
+    - 고객이 공연을 예매한다
+    - 공연 잔여좌석이 차감된다
+      - 잔여 좌석이 예매 수량보다 적을 경우?
+    - 예매 성공으로 상태 변경
+    - 예매를 결제한다
+    - 해당 금액 결제 시 발권가능 상태 티켓이 생성된다
+    - 해당 티켓 발권 시 티켓이 발권됨 상태로 변경된다
+      - 티켓 발권 주체?
+      
+# 시나리오2 Coverage Check
+![image](https://user-images.githubusercontent.com/19758188/84964432-0ef5b700-b147-11ea-980f-13bce4c51855.png)
+    - 고객이 마이페이지에서 예매 현황을 조회한다
+    - 고객이 예매를 취소한다
+    - 잔여 좌석수가 증가한다
+    - 결제가 취소된다
+    - 티켓이 취소됨 상태로 변경된다
 
-    - 고객이 메뉴를 선택하여 주문한다 (ok)
-    - 고객이 결제한다 (ok)
-    - 주문이 되면 주문 내역이 입점상점주인에게 전달된다 (ok)
-    - 상점주인이 확인하여 요리해서 배달 출발한다 (ok)
-
-![image](https://user-images.githubusercontent.com/487999/79684170-47256a00-826a-11ea-9777-e16fafff519a.png)
-    - 고객이 주문을 취소할 수 있다 (ok)
-    - 주문이 취소되면 배달이 취소된다 (ok)
-    - 고객이 주문상태를 중간중간 조회한다 (View-green sticker 의 추가로 ok) 
-    - 주문상태가 바뀔 때 마다 카톡으로 알림을 보낸다 (?)
-
-
-### 모델 수정
-
-![image](https://user-images.githubusercontent.com/487999/79684176-4e4c7800-826a-11ea-8deb-b7b053e5d7c6.png)
-    
-    - 수정된 모델은 모든 요구사항을 커버함.
+### 모델 수정 - 요구사항 커버 확인
+    - 고객이 공연을 예매한다
+      - 잔여석 < 예매수 예매 실패로 상태 변경
+      - 잔여석 > 예매수
+    - 예매 확정 상태 변경
+    - 확정된 예매 건 결제 요청
+    - 고객이 티켓을 발권한다
 
 ### 비기능 요구사항에 대한 검증
 
-![image](https://user-images.githubusercontent.com/487999/79684184-5c9a9400-826a-11ea-8d87-2ed1e44f4562.png)
+![image](https://user-images.githubusercontent.com/19758188/84964463-2634a480-b147-11ea-97db-bc9f6ce1483b.png)
 
-    - 마이크로 서비스를 넘나드는 시나리오에 대한 트랜잭션 처리
-        - 고객 주문시 결제처리:  결제가 완료되지 않은 주문은 절대 받지 않는다는 경영자의 오랜 신념(?) 에 따라, ACID 트랜잭션 적용. 주문와료시 결제처리에 대해서는 Request-Response 방식 처리
-        - 결제 완료시 점주연결 및 배송처리:  App(front) 에서 Store 마이크로서비스로 주문요청이 전달되는 과정에 있어서 Store 마이크로 서비스가 별도의 배포주기를 가지기 때문에 Eventual Consistency 방식으로 트랜잭션 처리함.
-        - 나머지 모든 inter-microservice 트랜잭션: 주문상태, 배달상태 등 모든 이벤트에 대해 카톡을 처리하는 등, 데이터 일관성의 시점이 크리티컬하지 않은 모든 경우가 대부분이라 판단, Eventual Consistency 를 기본으로 채택함.
-
-
-
+    - 예매/공연 서비스를 결제 서비스와 격리하여 결제 서비스 장애 시에도 예매할 수 있도록 함
+    - 공연 잔여 좌석수가 예매 수량보다 적을 경우, 예매 확정 및 결제가 불가하도록 함
+    - 결제 취소 예매 건은 즉시 티켓 발권이 불가 하도록 함
 
 ## 헥사고날 아키텍처 다이어그램 도출
     
-![image](https://user-images.githubusercontent.com/487999/79684772-eba9ab00-826e-11ea-9405-17e2bf39ec76.png)
-
-
+![image](https://user-images.githubusercontent.com/59593156/84855670-9e478f80-b09f-11ea-8ddd-64e8828bed97.png)
     - Chris Richardson, MSA Patterns 참고하여 Inbound adaptor와 Outbound adaptor를 구분함
     - 호출관계에서 PubSub 과 Req/Resp 를 구분함
-    - 서브 도메인과 바운디드 컨텍스트의 분리:  각 팀의 KPI 별로 아래와 같이 관심 구현 스토리를 나눠가짐
+    - 서브 도메인과 바운디드 컨텍스트의 분리
 
 
 # 구현:
