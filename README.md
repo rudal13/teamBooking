@@ -356,17 +356,25 @@ public interface TicketIssuanceService {
 ```
 # 발권 (ticketIssuance) 서비스를 잠시 내려놓음
 
-#예매처리
-http patch localhost:8081/bookings/1 bookStatus="Cancelled"   #Fail
-http patch localhost:8081/bookings/2 bookStatus="Cancelled"   #Fail
+#공연좌석등록
+http post localhost:8082/shows showName="showName1" totalCount=100 remainCount=100
+
+#예매취소처리
+http patch localhost:8081/bookings/1 bookStatus="Cancelled"   #Success
+
+#결제확인
+http get localhost:8083/payments #발권 서비스가 중단되어 "Payed" 상태
 
 #발권서비스 재기동
 cd ticketIssuance
 mvn spring-boot:run
 
-#예매처리
-http patch localhost:8081/bookings/1 bookStatus="Cancelled"   #Success
+#예매취소처리
 http patch localhost:8081/bookings/2 bookStatus="Cancelled"   #Success
+
+#결제확인
+http get localhost:8083/payments #2번 예매건이 "Cancelled" 처리됨
+
 ```
 
 - 또한 과도한 요청시에 서비스 장애가 도미노 처럼 벌어질 수 있다. (서킷브레이커, 폴백 처리는 운영단계에서 설명한다.)
@@ -376,7 +384,7 @@ http patch localhost:8081/bookings/2 bookStatus="Cancelled"   #Success
 ## 비동기식 호출 / 시간적 디커플링 / 장애격리 / 최종 (Eventual) 일관성 테스트
 
 
-예매가 이루어진 후에 공연시스템으로 이를 알려주는 행위는 동기식이 아니라 비 동기식으로 처리하여 공연 시스템의 처리를 위하여 예매주문이 블로킹 되지 않아도록 처리한다.
+예매가 이루어진 후에 결제시스템으로 이를 알려주는 행위는 동기식이 아니라 비 동기식으로 처리하여 결제 시스템의 처리를 위하여 예매주문이 블로킹 되지 않아도록 처리한다.
  
 - 이를 위하여 예매 기록을 남긴 후에 곧바로 예매 되었다는 도메인 이벤트를 카프카로 송출한다(Publish)
  
@@ -419,8 +427,8 @@ http post localhost:8081/bookings showId=1 qty=1000 amount=30000 showName="showN
 #예매상태 확인
 http get localhost:8081/bookings    # 예매상태는 모두 "Booked"
 
-#공연 서비스 기동
-cd show
+#결제 서비스 기동
+cd pay
 mvn spring-boot:run
 
 #결제상태 확인
@@ -523,7 +531,7 @@ https://workflowy.com/s/msa/27a0ioMCzlpV04Ib#/d3169f4b644e
 
     - Circuit Breaking, Retry
     - CodeBuild CI/CD
-     Autoscale
+    - Autoscale
     - 부하테스트
     - liveness/readiness probe
     - Contract Test
