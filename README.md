@@ -479,19 +479,23 @@ booking - PolicyHandler.java
 
 공연 시스템은 예매와 완전히 분리되어있으며, 이벤트 수신에 따라 처리되기 때문에, 공연시스템이 유지보수로 인해 잠시 내려간 상태라도 주문을 받는데 문제가 없다:
 ```
-# 공연 서비스 (store) 를 잠시 내려놓음 (ctrl+c)
+
+# 공연 서비스 (show) 를 잠시 내려놓음 (ctrl+c)
 
 #예매처리
-http patch localhost:8081/bookings/1 bookStatus="Cancelled"   #Fail
-http patch localhost:8081/bookings/2 bookStatus="Cancelled"   #Fail
+http post localhost:8081/bookings showId=1 qty=10 amount=30000 showName="showName1" bookStatus="Booked"     #Success
+http post localhost:8081/bookings showId=1 qty=1000 amount=30000 showName="showName1" bookStatus="Booked"   #Success
 
-#공연서비스 재기동
+#예매상태 확인
+http get localhost:8081/bookings    # 예매상태는 모두 "Booked"
+
+#공연 서비스 기동
 cd show
 mvn spring-boot:run
 
-#예매처리
-http patch localhost:8081/bookings/1 bookStatus="Cancelled"   #Success
-http patch localhost:8081/bookings/2 bookStatus="Cancelled"   #Success
+#예매상태 확인
+http get localhost:8081/bookings    # 1번의 예매상태는 "Booked", 2번의 예매상태는 "Failed"
+
 ```
 
 
