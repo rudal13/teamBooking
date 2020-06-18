@@ -519,7 +519,9 @@ https://workflowy.com/s/msa/27a0ioMCzlpV04Ib#/d3169f4b644e
 
 ----
 
-<b>운영 :  서비스 매시 - Istio ~ Circuit Breaking, Retry</b>
+<b>시연 테스트</b>
+
+<b>운영 :  서비스 매시 - Circuit Breaking, Retry</b>
 
 https://workflowy.com/s/msa/27a0ioMCzlpV04Ib#/377f767d80a6
 
@@ -540,5 +542,9 @@ https://workflowy.com/s/msa/27a0ioMCzlpV04Ib#/82ae852f57a6
 ----
 
 <b>liveness/readiness probe</b>
+
+----
+
+<b>Contract Test</b>
 
 ----
