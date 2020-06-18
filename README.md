@@ -1,9 +1,6 @@
 # 공연예매
 
-본 예제는 MSA/DDD/Event Storming/EDA 를 포괄하는 분석/설계/구현/운영 전단계를 커버하도록 구성한 예제입니다.
-이는 클라우드 네이티브 애플리케이션의 개발에 요구되는 체크포인트들을 통과하기 위한 예시 답안을 포함합니다.
-- 체크포인트 : https://workflowy.com/s/assessment-check-po/T5YrzcMewfo4J6LW
-
+공연을 예매/결제/발권 및 공연잔여좌석수를 확인할 수 있는 시스템 구성
 
 # Table of contents
 
@@ -17,12 +14,12 @@
     - [폴리글랏 프로그래밍](#폴리글랏-프로그래밍)
     - [동기식 호출 과 Fallback 처리](#동기식-호출-과-Fallback-처리)
     - [비동기식 호출 과 Eventual Consistency](#비동기식-호출-과-Eventual-Consistency)
-  - [운영](#운영)
+  - [배포]
+  - [운영]
     - [CI/CD 설정](#cicd설정)
     - [동기식 호출 / 서킷 브레이킹 / 장애격리](#동기식-호출-서킷-브레이킹-장애격리)
     - [오토스케일 아웃](#오토스케일-아웃)
     - [무정지 재배포](#무정지-재배포)
-  - [신규 개발 조직의 추가](#신규-개발-조직의-추가)
 
 # 서비스 시나리오
 
@@ -440,8 +437,7 @@ http get localhost:8083/payments    # 결제상태는 모두 "Payed"
 
 ```
 
-
-# AWS
+# 배포
 
 <b>AWS IAM User Access Key 생성</b>
 
@@ -531,7 +527,7 @@ https://workflowy.com/s/msa/27a0ioMCzlpV04Ib#/d3169f4b644e
 
 ----
 
-<b>시연 테스트</b>
+# 운영 (시연테스트)
 
     - Circuit Breaking, Retry
     - CodeBuild CI/CD
