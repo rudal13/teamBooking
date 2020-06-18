@@ -13,10 +13,12 @@
     - [비동기식 호출 과 Eventual Consistency](#비동기식-호출-과-Eventual-Consistency)
   - [배포](#배포)
   - [운영:](#운영-)
+    - [서킷 브레이킹 / 장애격리](#서킷-브레이킹-장애격리)
     - [CI/CD 설정](#cicd설정)
-    - [동기식 호출 / 서킷 브레이킹 / 장애격리](#동기식-호출-서킷-브레이킹-장애격리)
     - [오토스케일 아웃](#오토스케일-아웃)
     - [무정지 재배포](#무정지-재배포)
+    - [Liveness / Readiness](#Liveness-Readiness)
+    - [Contract Test](#Contract-Test)
 
 # 서비스 시나리오
 
