@@ -143,8 +143,8 @@ http://msaez.io/#/storming/TtlBXy3jjVQGoUCtUfiFniZJdmA3/mine/fb4e809d0e505571ac6
 ### 1차 완성본에 대한 기능적/비기능적 요구사항을 커버하는지 검증
 
 # 시나리오1 Coverage Check
-
 ![image](https://user-images.githubusercontent.com/19758188/84965203-36e61a00-b149-11ea-833b-f0a289250210.png)
+
     - 고객이 공연을 예매한다
     - 공연 잔여좌석이 차감된다
         - 잔여 좌석이 예매 수량보다 적을 경우?
@@ -155,8 +155,8 @@ http://msaez.io/#/storming/TtlBXy3jjVQGoUCtUfiFniZJdmA3/mine/fb4e809d0e505571ac6
         - 티켓 발권 주체?
       
 # 시나리오2 Coverage Check
-
 ![image](https://user-images.githubusercontent.com/19758188/84965203-36e61a00-b149-11ea-833b-f0a289250210.png)
+
     - 고객이 마이페이지에서 예매 현황을 조회한다
     - 고객이 예매를 취소한다
     - 잔여 좌석수가 증가한다
@@ -165,6 +165,7 @@ http://msaez.io/#/storming/TtlBXy3jjVQGoUCtUfiFniZJdmA3/mine/fb4e809d0e505571ac6
 
 ### 모델 수정 - 요구사항 커버 확인
 ![image](https://user-images.githubusercontent.com/19758188/84965244-52512500-b149-11ea-8f0a-5c8a9d741d37.png)
+
     - 고객이 공연을 예매한다
         - 잔여석 < 예매수 예매 실패로 상태 변경
         - 잔여석 > 예매수
@@ -173,15 +174,15 @@ http://msaez.io/#/storming/TtlBXy3jjVQGoUCtUfiFniZJdmA3/mine/fb4e809d0e505571ac6
     - 고객이 티켓을 발권한다
 
 ### 비기능 요구사항에 대한 검증
-
 ![image](https://user-images.githubusercontent.com/19758188/84965258-6137d780-b149-11ea-83f5-ff41709598a8.png)
+
     - 예매/공연 서비스를 결제 서비스와 격리하여 결제 서비스 장애 시에도 예매할 수 있도록 함
     - 공연 잔여 좌석수가 예매 수량보다 적을 경우, 예매 확정 및 결제가 불가하도록 함
     - 결제 취소 예매 건은 즉시 티켓 발권이 불가 하도록 함
 
-## 헥사고날 아키텍처 다이어그램 도출
-    
+## 헥사고날 아키텍처 다이어그램 도출    
 ![image](https://user-images.githubusercontent.com/59593156/84855670-9e478f80-b09f-11ea-8ddd-64e8828bed97.png)
+
     - Chris Richardson, MSA Patterns 참고하여 Inbound adaptor와 Outbound adaptor를 구분함
     - 호출관계에서 PubSub 과 Req/Resp 를 구분함
     - 서브 도메인과 바운디드 컨텍스트의 분리
