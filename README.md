@@ -521,36 +521,11 @@ https://workflowy.com/s/msa/27a0ioMCzlpV04Ib#/d3169f4b644e
 
 <b>시연 테스트</b>
 
-<b>운영 :  서비스 매시 - Circuit Breaking, Retry</b>
-
-https://workflowy.com/s/msa/27a0ioMCzlpV04Ib#/377f767d80a6
-
-----
-
-<b>CodeBuild CI/CD</b>
-
-https://workflowy.com/s/msa/27a0ioMCzlpV04Ib#/82ae852f57a6
-
-----
-
-<b>Autoscale</b>
-
-https://workflowy.com/s/msa/27a0ioMCzlpV04Ib#/d68be193997d
-
-----
-
-<b>부하테스트</b>
-
-----
-
-<b>liveness/readiness probe</b>
-
-https://workflowy.com/s/msa/27a0ioMCzlpV04Ib#/556f4336a381
-
-----
-
-<b>Contract Test</b>
-
-https://workflowy.com/s/msa/27a0ioMCzlpV04Ib#/7d8e9f30c083
+    - Circuit Breaking, Retry
+    - CodeBuild CI/CD
+     Autoscale
+    - 부하테스트
+    - liveness/readiness probe
+    - Contract Test
 
 ----
