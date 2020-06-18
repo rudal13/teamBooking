@@ -354,13 +354,17 @@ public interface TicketIssuanceService {
 
 
 ```
-# 발권 (ticketIssuance) 서비스를 잠시 내려놓음
-
 #공연좌석등록
 http post localhost:8082/shows showName="showName1" totalCount=100 remainCount=100
 
+#예매처리
+http post localhost:8081/bookings showId=1 qty=10 amount=30000 showName="showName1" bookStatus="Booked"
+http post localhost:8081/bookings showId=1 qty=10 amount=30000 showName="showName1" bookStatus="Booked"
+
+# 발권 (ticketIssuance) 서비스를 잠시 내려놓음
+
 #예매취소처리
-http patch localhost:8081/bookings/1 bookStatus="Cancelled"   #Success
+http patch localhost:8081/bookings/1 bookStatus="Cancelled"
 
 #결제확인
 http get localhost:8083/payments #발권 서비스가 중단되어 "Payed" 상태
@@ -370,10 +374,10 @@ cd ticketIssuance
 mvn spring-boot:run
 
 #예매취소처리
-http patch localhost:8081/bookings/2 bookStatus="Cancelled"   #Success
+http patch localhost:8081/bookings/2 bookStatus="Cancelled"
 
 #결제확인
-http get localhost:8083/payments #2번 예매건이 "Cancelled" 처리됨
+http get localhost:8083/payments #2번 예매건이 "Cancelled"
 
 ```
 
