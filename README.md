@@ -478,18 +478,3 @@ https://workflowy.com/s/msa/27a0ioMCzlpV04Ib#/d3169f4b644e
 ----
 
 
-액세스키Id : AKIAT6IQHQ7SJPJAWKEM
-
-비밀액세스키 : 2inFvzyypevnegAfhhZGFNSn7bQL9LzQ5SJ1/QW+
-
-271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin10-carsales
-271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin10-dashboard
-271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin10-gateway
-271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin10-inspection
-271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin10-insurance
-
-eksctl create cluster --name admin10-sk-Cluster --version 1.15 --nodegroup-name standard-workers --node-type t3.medium --nodes 3 --nodes-min 1 --nodes-max 3
-
-
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add 
-
