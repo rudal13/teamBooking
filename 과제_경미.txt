@@ -1,0 +1,23 @@
+
+271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin10-carsales
+271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin10-dashboard
+271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin10-gateway
+271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin10-inspection
+271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin10-insurance
+
+eksctl create cluster --name admin10-sk-Cluster --version 1.15 --nodegroup-name standard-workers --node-type t3.medium --nodes 3 --nodes-min 1 --nodes-max 3
+
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add 
+
+curl -k -L https://download.docker.com/linux/ubuntu/gpg
+
+
+http post a5307a3a023584ae9843cba08f6f04c8-868051850.ap-northeast-2.elb.amazonaws.com:8080/carSaleses carName="car1" carAccidentCnt=1 buyAmount=10000 status="bought"
+http post a5307a3a023584ae9843cba08f6f04c8-868051850.ap-northeast-2.elb.amazonaws.com:8080/carSaleses carName="car2" carAccidentCnt=1 buyAmount=10000 status="bought"
+
+http patch a5307a3a023584ae9843cba08f6f04c8-868051850.ap-northeast-2.elb.amazonaws.com:8080/carSaleses/3 drivingYear=2 salesAmount=12000 status="sold"
+
+
+
+http get a5307a3a023584ae9843cba08f6f04c8-868051850.ap-northeast-2.elb.amazonaws.com:8080/salesStatuses
