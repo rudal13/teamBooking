@@ -394,7 +394,7 @@ ECR > 리포지토리 생성
 
 ----
 
-<b>클러스터 생성</b>
+<b>클러스터 생성 EKS </b>
 
 eksctl create cluster --name (Cluster-Name) --version 1.15 --nodegroup-name standard-workers --node-type t3.medium --nodes 3 --nodes-min 1 --nodes-max 3
 
