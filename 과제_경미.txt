@@ -1,23 +1,62 @@
+액세스키Id : AKIAT6IQHQ7SM2V2M6HD
+비밀액세스키 : hF6+WQ99NKcexM0C4GWkHXKVMq/rJzWjOXL0U4k2
 
-271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin10-carsales
-271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin10-dashboard
-271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin10-gateway
-271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin10-inspection
-271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin10-insurance
+aws configure 입력
+관리콘솔에 복사한 Access Key ID와 Secret Access key 입력
+region 정보에 ap-northeast-2 입력
+default output format에 json 입력
 
-eksctl create cluster --name admin10-sk-Cluster --version 1.15 --nodegroup-name standard-workers --node-type t3.medium --nodes 3 --nodes-min 1 --nodes-max 3
+271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin20-carsales
+271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin20-dashboard
+271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin20-gateway
+271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin20-inspection
+271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin20-insurance
+
+eksctl create cluster --name admin20-sk-Cluster --version 1.15 --nodegroup-name standard-workers --node-type t3.medium --nodes 3 --nodes-min 1 --nodes-max 3
+
+aws eks --region ap-northeast-2 update-kubeconfig --name admin12-Cluster
+
+git clone https://github.com/rudal13/carSales.git
+git clone https://github.com/rudal13/dashboard.git
+git clone https://github.com/rudal13/gateway.git
+git clone https://github.com/rudal13/inspection.git
+git clone https://github.com/rudal13/insurance.git
+
+각 프로젝트 폴더에서 mvn package -Dmaven.test.skip=true   수행하여 각각 빌드 
+
+aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 271153858532.dkr.ecr.ap-northeast-2.amazonaws.com
+
+docker build -t 271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin12-carsales:v3 .
+docker build -t 271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin12-dashboard:v2 .
+docker build -t 271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin12-gateway:v4 .
+docker build -t 271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin12-inspection:v2 .
+docker build -t 271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin12-insurance:v2 .
+
+docker push 271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin12-carsales:v3
+docker push 271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin12-dashboard:v2 
+docker push 271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin12-gateway:v4
+docker push 271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin12-inspection:v2 
+docker push 271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin12-insurance:v2 
+
+kubectl create deploy carsales2 --image=271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin12-carsales:v3
+kubectl create deploy dashboard --image=271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin12-dashboard:v2
+kubectl create deploy gateway2 --image=271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin12-gateway:v4
+kubectl create deploy inspection --image=271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin12-inspection:v2
+kubectl create deploy insurance --image=271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin12-insurance:v2
 
 
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add 
+kubectl expose deploy carsales2 --type=ClusterIP --port=8080
+kubectl expose deploy dashboard --type=ClusterIP --port=8080
+kubectl expose deploy gateway2  --type=ClusterIP --port=8080
+kubectl expose deploy inspection  --type=ClusterIP --port=8080
+kubectl expose deploy insurance  --type=ClusterIP --port=8080
 
-curl -k -L https://download.docker.com/linux/ubuntu/gpg
+kubectl delete svc gateway3  
 
-
-http post a5307a3a023584ae9843cba08f6f04c8-868051850.ap-northeast-2.elb.amazonaws.com:8080/carSaleses carName="car1" carAccidentCnt=1 buyAmount=10000 status="bought"
-http post a5307a3a023584ae9843cba08f6f04c8-868051850.ap-northeast-2.elb.amazonaws.com:8080/carSaleses carName="car2" carAccidentCnt=1 buyAmount=10000 status="bought"
-
-http patch a5307a3a023584ae9843cba08f6f04c8-868051850.ap-northeast-2.elb.amazonaws.com:8080/carSaleses/3 drivingYear=2 salesAmount=12000 status="sold"
+kubectl deploy gateway2 --image=271153858532.dkr.ecr.ap-northeast-2.amazonaws.com/admin12-gateway:v3
 
 
 
-http get a5307a3a023584ae9843cba08f6f04c8-868051850.ap-northeast-2.elb.amazonaws.com:8080/salesStatuses
+LoadBalancer
+
+a5c6f2ab725cf48c1862d019249fb1ea-1816405087.ap-northeast-2.elb.amazonaws.com
